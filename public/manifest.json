@@ -1,6 +1,9 @@
 {
   "short_name": "Weather Extension",
   "name": "Weather Chrome Extension",
+  "permissions": [
+    "geolocation"
+  ],
   "host_permissions": [
     "*://*/*"
   ],
@@ -10,9 +13,9 @@
     "default_title": "Weather Extension"
   },
   "icons": {
-    "16": "logo192.png",
-    "48": "logo192.png",
-    "128": "logo192.png"
+    "16": "weather16.png",
+    "48": "weather48.png",
+    "128": "weather128.png"
   },
   "version": "1.0",
   "content_security_policy": {

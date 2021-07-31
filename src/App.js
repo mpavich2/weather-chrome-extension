@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.scss';
+import MainPage from './pages/MainPage';
 
 const App = () => {
   return (
     <div className="app">
-      Hello World
+      <MainPage />
     </div>
   );
 }
