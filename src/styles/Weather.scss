@@ -1,0 +1,21 @@
+.weatherWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.windHumidityWrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px
+}
+
+.items {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}

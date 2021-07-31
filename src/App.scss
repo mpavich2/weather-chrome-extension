@@ -1,12 +1,22 @@
 @import './styles/Header.scss';
+@import './styles/SearchBar.scss';
+@import './styles/Weather.scss';
+@import './styles/HourlyForecast.scss';
+@import './styles/MainPage.scss';
 
 body {
     margin: 0;
     padding: 0;
     font-family: 'Open Sans', sans-serif;
+    color: #6a6a6a;
+    background-color: #FAFAFA;
 }
 
 .app {
     min-width: 300px;
-    min-height: 350px;
+    min-height: 565px;
+}
+
+.weatherWrapper {
+    padding-bottom: 10px;
 }

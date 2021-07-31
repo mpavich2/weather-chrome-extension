@@ -1,0 +1,13 @@
+.hourlyList {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    padding: 5px 10px 10px 10px;
+    gap: 10px;
+}
+
+.forecastTitle {
+    text-align: center;
+    padding-top: 10px;
+}
