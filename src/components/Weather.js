@@ -1,44 +1,43 @@
-import React from 'react';
-import { WiThunderstorm, WiSleet, WiStormShowers, WiSnow, WiFog, WiDaySunny, WiDayFog, WiStrongWind, WiHumidity } from 'weather-icons-react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { changeWeatherIcon } from '../redux/slices/WeatherIconSlice';
+import { changeTemperature } from '../redux/slices/TemperatureSlice';
+import { WiStrongWind, WiHumidity } from 'weather-icons-react';
+import WeatherIcon from './WeatherIcon';
 
-const weatherApi = {
-    key: process.env.REACT_APP_WEATHER_API_KEY,
-    base: "https://api.openweathermap.org/data/2.5/"
-}
+// const weatherApi = {
+//     key: process.env.REACT_APP_WEATHER_API_KEY,
+//     base: "https://api.openweathermap.org/data/2.5/"
+// }
 
-const iconSize = 100;
+const Weather = (props) => {
+    useEffect(() => {
+        props.dispatch(
+            changeWeatherIcon('Thunderstorm')
+        );
+        props.dispatch(
+            changeTemperature('75°F')
+        );
+    }, []);
 
-const icons = {
-    Thunderstorm: <WiThunderstorm size={ iconSize } />,
-    Drizzle: <WiSleet size={ iconSize } />,
-    Rain: <WiStormShowers />,
-    Snow: <WiSnow size={ iconSize } />,
-    Atmosphere: <WiFog size={ iconSize } />,
-    Clear: <WiDaySunny size={ iconSize } />,
-    Clouds: <WiDayFog size={ iconSize } />,
-    Wind: <WiStrongWind size={ 25 } />,
-    Humidity: <WiHumidity size={ 25 } />
-}
-
-const Weather = () => {
     return (
         <div>
             <div className="weatherWrapper">
-                {icons.Thunderstorm}
+                <WeatherIcon iconName={ props.weatherIcon } />
                 <Typography variant="body2" component="div">
-                    Thunderstorm
+                    { props.weatherIcon }
                 </Typography>
                 <Typography variant="h3" component="div">
-                    75°F
+                    { props.temperature }
                 </Typography>
                 <div className="windHumidityWrapper">
                     <div className="items">
-                        {icons.Wind} 5 mi/h
+                        <WiStrongWind size={ 25 } /> 5 mi/h
                     </div>
                     <div className="items">
-                        {icons.Humidity} 63%
+                        <WiHumidity size={ 25 } /> 63%
                     </div>
                 </div>
                 <Button variant="outlined" style={{ margin: '10px', width: '250px'}}>Full Report</Button>
@@ -51,4 +50,11 @@ const Weather = () => {
     )
 }
 
-export default Weather;
+const mapStateToProps = (state) => {
+    return {
+        weatherIcon: state.weatherIcon,
+        temperature: state.temperature
+    }
+}
+
+export default connect(mapStateToProps)(Weather);

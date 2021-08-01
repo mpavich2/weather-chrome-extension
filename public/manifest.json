@@ -12,11 +12,11 @@
     "default_popup": "index.html",
     "default_title": "Weather Extension"
   },
-  "icons": {
-    "16": "weather16.png",
-    "48": "weather48.png",
-    "128": "weather128.png"
-  },
+  "icons": [
+    "weather16.png",
+    "weather48.png",
+    "weather128.png"
+  ],
   "version": "1.0",
   "content_security_policy": {
     "script-src": "self",
