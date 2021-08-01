@@ -5,11 +5,11 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import { connect } from 'react-redux';
 import { changeLocation } from '../redux/slices/LocationSlice';
-import { getCoordinates } from '../utils/Geolocater';
+import { getCityName } from '../utils/Geolocater';
 
 const SearchBar = (props) => {
     useEffect(() => {
-        getCoordinates().then(response => {
+        getCityName().then(response => {
             props.dispatch(
                 changeLocation(response)
             );
