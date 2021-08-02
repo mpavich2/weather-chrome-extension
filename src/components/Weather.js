@@ -7,11 +7,6 @@ import { changeTemperature } from '../redux/slices/TemperatureSlice';
 import { WiStrongWind, WiHumidity } from 'weather-icons-react';
 import WeatherIcon from './WeatherIcon';
 
-// const weatherApi = {
-//     key: process.env.REACT_APP_WEATHER_API_KEY,
-//     base: "https://api.openweathermap.org/data/2.5/"
-// }
-
 const Weather = (props) => {
     useEffect(() => {
         props.dispatch(
@@ -20,7 +15,7 @@ const Weather = (props) => {
         props.dispatch(
             changeTemperature('75°F')
         );
-    }, []);
+    });
 
     return (
         <div>
@@ -53,7 +48,8 @@ const Weather = (props) => {
 const mapStateToProps = (state) => {
     return {
         weatherIcon: state.weatherIcon,
-        temperature: state.temperature
+        temperature: state.temperature,
+        weather: state.weather
     }
 }
 

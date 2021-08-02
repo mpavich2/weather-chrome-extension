@@ -1,4 +1,4 @@
-export function getCoordinates() {
+export function getCityName() {
     return new Promise((res, rej) => {
         navigator.geolocation.getCurrentPosition(position => {
             const latitude = position.coords.latitude;

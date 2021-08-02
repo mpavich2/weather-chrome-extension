@@ -5,7 +5,9 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import { connect } from 'react-redux';
 import { changeLocation } from '../redux/slices/LocationSlice';
+import { changeWeather } from '../redux/slices/WeatherSlice';
 import { getCityName } from '../utils/Geolocater';
+import { getWeatherDataByCity } from '../utils/WeatherRetriever';
 
 const SearchBar = (props) => {
     useEffect(() => {
@@ -15,6 +17,16 @@ const SearchBar = (props) => {
             );
         });
     }, []);
+
+    useEffect(() => {
+        if (props.location) {
+            getWeatherDataByCity(props.location).then(result => {
+                props.dispatch(
+                    changeWeather(result)
+                );
+            });
+        }
+    }, [props.location]);
 
     return (
         <div className="searchBarWrapper">
