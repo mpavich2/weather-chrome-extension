@@ -3,21 +3,21 @@ import { WiThunderstorm, WiSleet, WiStormShowers, WiSnow, WiFog, WiDaySunny, WiD
 
 const iconSize = 100;
 
-const convertToIcon = (iconName) => {
+const convertToIcon = (iconId) => {
     switch(true) {
-        case iconName === 'Thunderstorm':
+        case iconId >= 200 & iconId < 232:
             return <WiThunderstorm size={ iconSize } />;
-        case iconName === 'Drizzle':
+        case iconId >= 300 && iconId <= 321:
             return <WiSleet size={ iconSize } />;
-        case iconName === 'Rain':
+        case iconId >= 500 && iconId <= 521:
             return <WiStormShowers size={ iconSize } />;
-        case iconName === 'Snow':
+        case iconId >= 600 && iconId <= 622:
             return <WiSnow size={ iconSize } />;
-        case iconName === 'Atmosphere':
+        case iconId >= 701 && iconId <= 781:
             return <WiFog size={ iconSize } />;
-        case iconName === 'Clear':
+        case iconId === 800:
             return <WiDaySunny size={ iconSize } />;
-        case iconName === 'Clouds':
+        case iconId >= 801 && iconId <= 804:
             return <WiDayFog size={ iconSize } />;
         default:
             return <WiDaySunny size={ iconSize } />;
@@ -26,7 +26,9 @@ const convertToIcon = (iconName) => {
 
 const WeatherIcon = (props) => {
     return (
-        convertToIcon(props.iconName)
+        <div className="weatherIcon">
+            { convertToIcon(props.iconId) }
+        </div>
     )
 }
 

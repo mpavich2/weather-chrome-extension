@@ -1,45 +1,45 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import { changeWeatherIcon } from '../redux/slices/WeatherIconSlice';
-import { changeTemperature } from '../redux/slices/TemperatureSlice';
-import { WiStrongWind, WiHumidity } from 'weather-icons-react';
 import WeatherIcon from './WeatherIcon';
+import HumidityDetails from './HumidityDetails';
+import WindDetails from './WindDetails';
 
 const Weather = (props) => {
-    useEffect(() => {
-        props.dispatch(
-            changeWeatherIcon('Thunderstorm')
-        );
-        props.dispatch(
-            changeTemperature('75°F')
-        );
-    });
+    const windSpeed = props.weather.wind
+        ? Math.round(props.weather.wind.speed)
+        : '';
+    const humidity = props.weather.main
+        ? Math.round(props.weather.main.humidity)
+        : '';
+    const temperature = props.weather.main
+        ? Math.round(props.weather.main.temp)
+        : '';
+    const iconId = props.weather.weather
+        ? props.weather.weather[0].id
+        : '';
+    const weatherDescription = props.weather.weather
+        ? props.weather.weather[0].main
+        : '';
 
     return (
-        <div>
-            <div className="weatherWrapper">
-                <WeatherIcon iconName={ props.weatherIcon } />
-                <Typography variant="body2" component="div">
-                    { props.weatherIcon }
-                </Typography>
-                <Typography variant="h3" component="div">
-                    { props.temperature }
-                </Typography>
-                <div className="windHumidityWrapper">
-                    <div className="items">
-                        <WiStrongWind size={ 25 } /> 5 mi/h
-                    </div>
-                    <div className="items">
-                        <WiHumidity size={ 25 } /> 63%
-                    </div>
-                </div>
-                <Button variant="outlined" style={{ margin: '10px', width: '250px'}}>Full Report</Button>
-                <div>
-                    <Button variant="outlined" style={{ width: '120px', marginRight: '5px'}}>Daily</Button>
-                    <Button variant="outlined" style={{ width: '120px', marginLeft: '5px'}}>Air Quality</Button>
-                </div>
+        <div className="weatherWrapper">
+            <WeatherIcon iconId={ iconId } />
+            <Typography variant="body2" component="div">
+                { weatherDescription }
+            </Typography>
+            <Typography variant="h3" component="div">
+                { temperature }
+            </Typography>
+            <div className="windHumidityWrapper">
+                <WindDetails windSpeed={ windSpeed } />
+                <HumidityDetails humidity={ humidity } />
+            </div>
+            <Button variant="outlined" style={{ margin: '10px', width: '250px'}}>Full Report</Button>
+            <div>
+                <Button variant="outlined" style={{ width: '120px', marginRight: '5px'}}>Daily</Button>
+                <Button variant="outlined" style={{ width: '120px', marginLeft: '5px'}}>Air Quality</Button>
             </div>
         </div>
     )
@@ -47,8 +47,6 @@ const Weather = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        weatherIcon: state.weatherIcon,
-        temperature: state.temperature,
         weather: state.weather
     }
 }

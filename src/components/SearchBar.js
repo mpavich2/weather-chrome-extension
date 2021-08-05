@@ -24,6 +24,7 @@ const SearchBar = (props) => {
                 props.dispatch(
                     changeWeather(result)
                 );
+                console.log(result);
             });
         }
     }, [props.location]);
