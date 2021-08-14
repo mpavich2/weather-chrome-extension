@@ -16,3 +16,19 @@ export function getCityName() {
         );
     });
 }
+
+export function getCoordinates() {
+    return new Promise((res, rej) => {
+        navigator.geolocation.getCurrentPosition(position => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const coordinates = {
+                latitude: latitude,
+                longitude: longitude
+            }
+            res(coordinates);
+        },
+            err => rej(err)
+        );
+    });
+}

@@ -7,30 +7,22 @@ import HumidityDetails from './HumidityDetails';
 import WindDetails from './WindDetails';
 
 const Weather = (props) => {
-    const windSpeed = props.weather.wind
-        ? Math.round(props.weather.wind.speed)
-        : '';
-    const humidity = props.weather.main
-        ? Math.round(props.weather.main.humidity)
-        : '';
-    const temperature = props.weather.main
-        ? Math.round(props.weather.main.temp)
-        : '';
-    const iconId = props.weather.weather
-        ? props.weather.weather[0].id
-        : '';
-    const weatherDescription = props.weather.weather
-        ? props.weather.weather[0].main
-        : '';
+    const windSpeed = props.weather?.wind?.speed ?? '';
+    const humidity = Math.round(props.weather?.main?.humidity) ?? '';
+    const temperature = Math.round(props.weather?.main?.temp) ?? '';
+    const iconId = props.weather?.weather?.[0].id ?? '';
+    const weatherDescription = props.weather?.weather?.[0].main ?? '';
 
     return (
         <div className="weatherWrapper">
-            <WeatherIcon iconId={ iconId } />
+            <div className="iconWrapper">
+                <WeatherIcon iconId={ iconId } />
+            </div>
             <Typography variant="body2" component="div">
                 { weatherDescription }
             </Typography>
             <Typography variant="h3" component="div">
-                { temperature }
+                { Math.round(temperature) }°F
             </Typography>
             <div className="windHumidityWrapper">
                 <WindDetails windSpeed={ windSpeed } />

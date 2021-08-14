@@ -3,7 +3,6 @@
 @import './styles/Weather.scss';
 @import './styles/HourlyForecast.scss';
 @import './styles/MainPage.scss';
-@import './styles/WeatherIcon.scss';
 
 body {
     margin: 0;
@@ -14,8 +13,8 @@ body {
 }
 
 .app {
-    min-width: 300px;
-    min-height: 565px;
+    min-width: 360px;
+    min-height: 580px;
 }
 
 .weatherWrapper {

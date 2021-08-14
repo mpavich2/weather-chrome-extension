@@ -21,7 +21,7 @@ const MainPage = () => {
                 </Typography>
             </div>
             <div className="hourlyList">
-                {[...Array(5)].map((el, index) => <HourlyForecast key={ index } />)}
+                {[...Array(5)].map((el, index) => <HourlyForecast key={ index } hour={ index } />)}
             </div>
         </div>
     )

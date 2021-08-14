@@ -6,14 +6,21 @@ import SearchIcon from '@material-ui/icons/Search';
 import { connect } from 'react-redux';
 import { changeLocation } from '../redux/slices/LocationSlice';
 import { changeWeather } from '../redux/slices/WeatherSlice';
-import { getCityName } from '../utils/Geolocater';
-import { getWeatherDataByCity } from '../utils/WeatherRetriever';
+import { changeCoordinates } from '../redux/slices/CoordinatesSlice';
+import { changeHourlyForecast } from '../redux/slices/HourlySlice';
+import { getCityName, getCoordinates } from '../utils/Geolocater';
+import { getWeatherDataByCity, getHourlyWeatherDataByCity } from '../utils/WeatherRetriever';
 
 const SearchBar = (props) => {
     useEffect(() => {
         getCityName().then(response => {
             props.dispatch(
                 changeLocation(response)
+            );
+        });
+        getCoordinates().then(result => {
+            props.dispatch(
+                changeCoordinates(result)
             );
         });
     }, []);
@@ -28,6 +35,17 @@ const SearchBar = (props) => {
             });
         }
     }, [props.location]);
+
+    useEffect(() => {
+        if (props.coordinates) {
+            getHourlyWeatherDataByCity(props.coordinates).then(result => {
+                props.dispatch(
+                    changeHourlyForecast(result)
+                );
+                console.log(result);
+            });
+        }
+    }, [props.coordinates]);
 
     return (
         <div className="searchBarWrapper">
@@ -50,7 +68,8 @@ const SearchBar = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        location: state.location
+        location: state.location,
+        coordinates: state.coordinates
     }
 }
 
