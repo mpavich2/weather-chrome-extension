@@ -1,13 +1,15 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import WeatherIcon from './WeatherIcon';
 import HumidityDetails from './HumidityDetails';
 import WindDetails from './WindDetails';
 
 const Weather = (props) => {
-    const windSpeed = props.weather?.wind?.speed ?? '';
+    while(props.weather.weather === null || props.weather.weather === undefined) {
+        return <p>hi</p>;
+    }
+    const windSpeed = Math.round(props.weather?.wind?.speed) ?? '';
     const humidity = Math.round(props.weather?.main?.humidity) ?? '';
     const temperature = Math.round(props.weather?.main?.temp) ?? '';
     const iconId = props.weather?.weather?.[0].id ?? '';
@@ -27,11 +29,6 @@ const Weather = (props) => {
             <div className="windHumidityWrapper">
                 <WindDetails windSpeed={ windSpeed } />
                 <HumidityDetails humidity={ humidity } />
-            </div>
-            <Button variant="outlined" style={{ margin: '10px', width: '250px'}}>Full Report</Button>
-            <div>
-                <Button variant="outlined" style={{ width: '120px', marginRight: '5px'}}>Daily</Button>
-                <Button variant="outlined" style={{ width: '120px', marginLeft: '5px'}}>Air Quality</Button>
             </div>
         </div>
     )

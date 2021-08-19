@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import Clock from './Clock';
 import WeatherIcon from './WeatherIcon';
-import { WiThunderstorm } from 'weather-icons-react';
 
 
 const HourlyForecast = (props) => {
