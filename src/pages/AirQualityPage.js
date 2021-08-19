@@ -1,9 +1,10 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const AirQualityPage = () => {
     return (
         <div>
-            <p>Air Quality Page</p>
+            <Header />
         </div>
     )
 }

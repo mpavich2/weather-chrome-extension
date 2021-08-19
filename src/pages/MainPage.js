@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
-import Weather from '../components/Weather';
-import HourlyForecast from '../components/HourlyForecast';
+import MainHeader from '../components/mainpage/MainHeader';
+import SearchBar from '../components/mainpage/SearchBar';
+import Weather from '../components/mainpage/Weather';
+import HourlyForecast from '../components/mainpage/HourlyForecast';
 import { Divider } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
@@ -11,18 +11,18 @@ import Button from '@material-ui/core/Button';
 const MainPage = () => {
     return (
         <div>
-            <Header />
+            <MainHeader />
             <SearchBar />
             <div className="weatherWrapper">
                 <Weather />
-                <Link to="/report" style={{ textDecoration: 'none' }} exact>
+                <Link to="/report" style={{ textDecoration: 'none' }} exact="true">
                     <Button variant="outlined" style={{ margin: '10px', width: '250px'}}>Full Report</Button>
                 </Link>
                 <div>
-                    <Link to="/daily" style={{ textDecoration: 'none' }} exact>
+                    <Link to="/daily" style={{ textDecoration: 'none' }} exact="true">
                         <Button variant="outlined" style={{ width: '120px', marginRight: '5px'}}>Daily</Button>
                     </Link>
-                    <Link to="/airquality" style={{ textDecoration: 'none' }} exact>
+                    <Link to="/airquality" style={{ textDecoration: 'none' }} exact="true">
                         <Button variant="outlined" style={{ width: '120px', marginLeft: '5px'}}>Air Quality</Button>
                     </Link>
                 </div>

@@ -1,15 +1,20 @@
 import React from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Divider } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import Clock from './Clock';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { IconButton } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
         <div>
-            <div className="header">
-                <div className="time">
-                    <Clock />
+            <div className="mainHeader">
+                <div className="backArrow">
+                    <Link to="/" exact="true">
+                        <IconButton color="primary" aria-label="arrow back" component="span">
+                            <ArrowBackIcon />
+                        </IconButton>
+                    </Link>
                 </div>
                 <div className="menu">
                     <MenuIcon fontSize="large"/>

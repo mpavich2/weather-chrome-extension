@@ -4,12 +4,12 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import { connect } from 'react-redux';
-import { changeLocation } from '../redux/slices/LocationSlice';
-import { changeWeather } from '../redux/slices/WeatherSlice';
-import { changeCoordinates } from '../redux/slices/CoordinatesSlice';
-import { changeHourlyForecast } from '../redux/slices/HourlySlice';
-import { getCityName, getCoordinates } from '../utils/Geolocater';
-import { getWeatherDataByCity, getHourlyWeatherDataByCity } from '../utils/WeatherRetriever';
+import { changeLocation } from '../../redux/slices/LocationSlice';
+import { changeWeather } from '../../redux/slices/WeatherSlice';
+import { changeCoordinates } from '../../redux/slices/CoordinatesSlice';
+import { changeHourlyForecast } from '../../redux/slices/HourlySlice';
+import { getCityName, getCoordinates } from '../../utils/Geolocater';
+import { getWeatherDataByCity, getHourlyWeatherDataByCity } from '../../utils/WeatherRetriever';
 
 const SearchBar = (props) => {
     useEffect(() => {
