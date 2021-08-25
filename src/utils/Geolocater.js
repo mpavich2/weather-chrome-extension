@@ -9,7 +9,11 @@ export function getCityName() {
             fetch(geoApiUrl)
                 .then(response => response.json())
                 .then(data => {
-                    res(data.address.city);
+                    if (!data.address.city) {
+                        res(data.address.town);
+                    } else {
+                        res(data.address.city);
+                    }
                 });
             },
             err => rej(err)
