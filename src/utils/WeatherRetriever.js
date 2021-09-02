@@ -11,10 +11,18 @@ export async function getWeatherDataByCity(cityName) {
         });
 }
 
-export async function getHourlyWeatherDataByCity(coords) {
+export async function getHourlyWeatherDataByCoords(coords) {
     return await fetch(`${weatherApi.baseUrl}onecall?lat=${coords.latitude}&lon=${coords.longitude}&exclude=current,minutely,daily,alerts&units=imperial&appid=${weatherApi.key}`)
         .then(response => response.json())
         .then(result => {
             return result.hourly.slice(1, 6);
+        });
+}
+
+export async function getDailyWeatherDataByCoords(coords) {
+    return await fetch(`${weatherApi.baseUrl}onecall?lat=${coords.latitude}&lon=${coords.longitude}&exclude=current,minutely,hourly,alerts&units=imperial&appid=${weatherApi.key}`)
+        .then(response => response.json())
+        .then(result => {
+            return result.daily.slice(1, 8);
         });
 }

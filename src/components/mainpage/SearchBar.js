@@ -8,8 +8,9 @@ import { changeLocation } from '../../redux/slices/LocationSlice';
 import { changeWeather } from '../../redux/slices/WeatherSlice';
 import { changeCoordinates } from '../../redux/slices/CoordinatesSlice';
 import { changeHourlyForecast } from '../../redux/slices/HourlySlice';
+import { changeDailyForecast } from '../../redux/slices/DailySlice';
 import { getCityName, getCoordinates } from '../../utils/Geolocater';
-import { getWeatherDataByCity, getHourlyWeatherDataByCity } from '../../utils/WeatherRetriever';
+import { getWeatherDataByCity, getHourlyWeatherDataByCoords, getDailyWeatherDataByCoords } from '../../utils/WeatherRetriever';
 
 const SearchBar = (props) => {
     useEffect(() => {
@@ -38,9 +39,15 @@ const SearchBar = (props) => {
 
     useEffect(() => {
         if (props.coordinates) {
-            getHourlyWeatherDataByCity(props.coordinates).then(result => {
+            getHourlyWeatherDataByCoords(props.coordinates).then(result => {
                 props.dispatch(
                     changeHourlyForecast(result)
+                );
+                console.log(result);
+            });
+            getDailyWeatherDataByCoords(props.coordinates).then(result => {
+                props.dispatch(
+                    changeDailyForecast(result)
                 );
                 console.log(result);
             });

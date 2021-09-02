@@ -2,7 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import LocationReducer from './slices/LocationSlice';
 import WeatherReducer from './slices/WeatherSlice';
 import CoordinatesReudcer from './slices/CoordinatesSlice';
-import HourlySlice from "./slices/HourlySlice";
+import HourlySlice from './slices/HourlySlice';
+import DailySlice from './slices/DailySlice';
 
 export default configureStore({
     reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
         weather: WeatherReducer,
         coordinates: CoordinatesReudcer,
         hourly: HourlySlice,
+        daily: DailySlice,
     },
 });

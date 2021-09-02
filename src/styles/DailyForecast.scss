@@ -1,0 +1,26 @@
+.dailyEntry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px 0 5px;
+}
+
+.leftEntry {
+    display: flex;
+    align-items: center;
+}
+
+.rightEntry {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.minMaxTemp {
+    display: flex;
+}
+
+.minMaxTempWrapper {
+    display: flex;
+    flex-direction: column;
+}

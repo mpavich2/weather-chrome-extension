@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import Clock from './Clock';
-import WeatherIcon from './WeatherIcon';
+import WeatherIcon from '../WeatherIcon';
 
 
 const HourlyForecast = (props) => {

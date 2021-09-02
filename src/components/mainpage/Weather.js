@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
-import WeatherIcon from './WeatherIcon';
+import WeatherIcon from '../WeatherIcon';
 import HumidityDetails from './HumidityDetails';
 import WindDetails from './WindDetails';
 
