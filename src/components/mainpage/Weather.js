@@ -6,9 +6,6 @@ import HumidityDetails from './HumidityDetails';
 import WindDetails from './WindDetails';
 
 const Weather = (props) => {
-    while(props.weather.weather === null || props.weather.weather === undefined) {
-        return <p>hi</p>;
-    }
     const windSpeed = Math.round(props.weather?.wind?.speed) ?? '';
     const humidity = Math.round(props.weather?.main?.humidity) ?? '';
     const temperature = Math.round(props.weather?.main?.temp) ?? '';

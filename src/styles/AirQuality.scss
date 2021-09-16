@@ -1,0 +1,16 @@
+.airQualityWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+}
+
+.svgIcon {
+    padding-top: 100px;
+    transform: scale(3.5);
+}
+
+.airQualityIndexMessage {
+    padding-top: 200px;
+}

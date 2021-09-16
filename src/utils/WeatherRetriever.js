@@ -26,3 +26,11 @@ export async function getDailyWeatherDataByCoords(coords) {
             return result.daily.slice(1, 8);
         });
 }
+
+export async function getAirQualityDataByCoords(coords) {
+    return await fetch(`${weatherApi.baseUrl}air_pollution?lat=${coords.latitude}&lon=${coords.longitude}&appid=${weatherApi.key}`)
+        .then(response => response.json())
+        .then(result => {
+            return result;
+        });
+}

@@ -4,7 +4,7 @@ import { WiThunderstorm, WiSleet, WiStormShowers, WiSnow, WiFog, WiDaySunny, WiD
 const WeatherIcon = (props) => {
     const convertToIcon = (iconId) => {
         const iconSize = props.size || 100;
-        switch(true) {
+        switch (true) {
             case iconId >= 200 & iconId < 232:
                 return <WiThunderstorm size={ iconSize } color={ props.color } />;
             case iconId >= 300 && iconId <= 321:

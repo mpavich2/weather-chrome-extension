@@ -7,8 +7,22 @@ import { Divider } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import Loading from '../components/mainpage/Loading';
+import { connect } from 'react-redux';
 
-const MainPage = () => {
+const MainPage = (props) => {
+    while (props.weather.weather === null || props.weather.weather === undefined) {
+        return (
+            <div>
+                <MainHeader />
+                <SearchBar />
+                <div className="loadingWrapper">
+                    <Loading />
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div>
             <MainHeader />
@@ -40,4 +54,10 @@ const MainPage = () => {
     )
 }
 
-export default MainPage;
+const mapStateToProps = (state) => {
+    return {
+        weather: state.weather
+    }
+}
+
+export default connect(mapStateToProps)(MainPage);
