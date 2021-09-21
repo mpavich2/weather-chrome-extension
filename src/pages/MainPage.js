@@ -11,13 +11,27 @@ import Loading from '../components/mainpage/Loading';
 import { connect } from 'react-redux';
 
 const MainPage = (props) => {
-    while (props.weather.weather === null || props.weather.weather === undefined) {
+    const determineErrorOrLoadingState = () => {
+        if (props.weather.cod === '404') {
+            return (
+                <Typography variant="h2" component="div" sx={{ fontSize: 25 }}>
+                    City Not Found
+                </Typography>
+            )
+        } else if (props.weather.weather === null || props.weather.weather === undefined) {
+            return (
+                <Loading />
+            )
+        }
+    }
+
+    if (props.weather.cod === '404' || props.weather.weather === null || props.weather.weather === undefined) {
         return (
             <div>
                 <MainHeader />
                 <SearchBar />
-                <div className="loadingWrapper">
-                    <Loading />
+                <div className="errorWrapper">
+                    { determineErrorOrLoadingState() }
                 </div>
             </div>
         )
