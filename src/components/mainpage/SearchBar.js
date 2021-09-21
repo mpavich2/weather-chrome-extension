@@ -11,31 +11,9 @@ import { changeDailyForecast } from '../../redux/slices/DailySlice';
 import { getCityName, getCoordinates } from '../../utils/Geolocater';
 import { getWeatherDataByCity, getHourlyWeatherDataByCoords, getDailyWeatherDataByCoords } from '../../utils/WeatherRetriever';
 import CityData from '../../resources/CityData.json';
+import { sortJsonArrayByClosestDistance } from '../../utils/Coordinates';
 
 const SearchBar = (props) => {
-    const distance = function(lat1, lon1, lat2, lon2) {
-        var radlat1 = Math.PI * lat1 / 180;
-        var radlat2 = Math.PI * lat2 / 180;
-        var theta = lon1 - lon2;
-        var radtheta = Math.PI * theta / 180;
-        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-        dist = Math.acos(dist);
-        dist = dist * 180 / Math.PI;
-        dist = dist * 60 * 1.1515;
-        dist = dist * 1.609344;
-
-        return dist;
-    };
-
-    CityData.sort(function(a, b) {
-        if (props.coordinates) {
-            const origLat = props.coordinates.latitude,
-            origLong = props.coordinates.longitude;
-        
-            return distance(origLat, origLong, a.coord.lat, a.coord.lon) - distance(origLat, origLong, b.coord.lat, b.coord.lon);
-        }
-    });
-
     useEffect(() => {
         if (!props.location) {
             getCityName().then(response => {
@@ -57,14 +35,13 @@ const SearchBar = (props) => {
                 props.dispatch(
                     changeHourlyForecast(result)
                 );
-                console.log(result);
             });
             getDailyWeatherDataByCoords(props.coordinates).then(result => {
                 props.dispatch(
                     changeDailyForecast(result)
                 );
-                console.log(result);
             });
+            sortJsonArrayByClosestDistance(CityData, props.coordinates);
         }
     }, [props.coordinates]);
 
@@ -83,14 +60,13 @@ const SearchBar = (props) => {
                 props.dispatch(
                     changeWeather(result)
                 );
-                console.log(result);
             });
         }
     }
 
-    const handleSearchBarTextChanged = (event) => {
+    const handleSearchBarTextChanged = (value) => {
         props.dispatch(
-            changeLocation(event.target.value)
+            changeLocation(value)
         );
     }
 

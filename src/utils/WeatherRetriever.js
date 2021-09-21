@@ -11,6 +11,14 @@ export async function getWeatherDataByCity(cityName) {
         });
 }
 
+export async function getWeatherDataByCityId(cityId) {
+    return await fetch(`${weatherApi.baseUrl}weather?id=${cityId}&units=imperial&appid=${weatherApi.key}`)
+        .then(response => response.json())
+        .then(result => {
+            return result;
+        });
+}
+
 export async function getHourlyWeatherDataByCoords(coords) {
     return await fetch(`${weatherApi.baseUrl}onecall?lat=${coords.latitude}&lon=${coords.longitude}&exclude=current,minutely,daily,alerts&units=imperial&appid=${weatherApi.key}`)
         .then(response => response.json())
