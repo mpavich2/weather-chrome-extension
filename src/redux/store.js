@@ -13,6 +13,6 @@ export default configureStore({
         coordinates: CoordinatesReudcer,
         hourly: HourlySlice,
         daily: DailySlice,
-        airQuality: AirQualitySlice,
+        airQuality: AirQualitySlice
     },
 });

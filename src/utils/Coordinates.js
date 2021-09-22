@@ -20,5 +20,7 @@ export const sortJsonArrayByClosestDistance = (jsonArray, coords) => {
             return calculateDistance(originalLat, originalLon, a.coord.lat, a.coord.lon) 
                 - calculateDistance(originalLat, originalLon, b.coord.lat, b.coord.lon);
         }
+        
+        return 0;
     });
 }

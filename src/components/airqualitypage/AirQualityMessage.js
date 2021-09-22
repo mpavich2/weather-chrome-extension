@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 const AirQualityMessage = (props) => {
     const airQualityIndex = props.airQuality?.list?.[0].main.aqi;
+    const cityName = props.location.split(', ')[0];
 
     useEffect(() => {
         getAirQualityDataByCoords(props.coordinates).then(response => {
@@ -35,10 +36,13 @@ const AirQualityMessage = (props) => {
 
     return (
         <div className="airQualityWrapper">
-            <AirQualityIcon iconId={ airQualityIndex } />
-            <Typography variant="h2" component="div" className="airQualityIndexMessage" sx={{ fontSize: 25 }}>
+            <Typography variant="h2" component="div" sx={{ fontSize: 25 }}>
+                Air Quality in { cityName }
+            </Typography>
+            <Typography variant="h3" component="div" sx={{ fontSize: 40 }}>
                 { convertAirQualityIndexToText() }
             </Typography>
+            <AirQualityIcon iconId={ airQualityIndex } />
         </div>
     )
 }
@@ -46,7 +50,8 @@ const AirQualityMessage = (props) => {
 const mapStateToProps = (state) => {
     return {
         airQuality: state.airQuality,
-        coordinates: state.coordinates
+        coordinates: state.coordinates,
+        location: state.location
     }
 }
 

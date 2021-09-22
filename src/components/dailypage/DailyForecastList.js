@@ -3,7 +3,6 @@ import { Divider } from '@material-ui/core';
 import { connect } from 'react-redux';
 import WeatherIcon from '../WeatherIcon';
 import Typography from '@material-ui/core/Typography';
-import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 
 
 const DailyForecastList = (props) => {
@@ -21,8 +20,8 @@ const DailyForecastList = (props) => {
     return (
         <div>
             {props.daily.map((el, index) => 
-            <div>
-                <div key={ index } className="dailyEntry">
+            <div key={ index }>
+                <div className="dailyEntry">
                     <div className="leftEntry">
                         <WeatherIcon iconId={ el.weather[0].id } size={ 70 } />
                         <Typography variant="h4" component="div">
@@ -30,13 +29,12 @@ const DailyForecastList = (props) => {
                         </Typography>
                         <div className="minMaxTempWrapper">
                             <div className="minMaxTemp">
-                                <ArrowDropUp />
                                 <Typography variant="subtitle1" component="div">
                                     { Math.round(el.temp.max) }°F
                                 </Typography>
                             </div>
+                            <Divider />
                             <div className="minMaxTemp">
-                                <ArrowDropDown />
                                 <Typography variant="subtitle1" component="div">
                                     { Math.round(el.temp.min) }°F
                                 </Typography>

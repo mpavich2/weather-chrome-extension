@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import WeatherIcon from '../WeatherIcon';
@@ -6,11 +6,19 @@ import HumidityDetails from './HumidityDetails';
 import WindDetails from './WindDetails';
 
 const Weather = (props) => {
-    const windSpeed = Math.round(props.weather?.wind?.speed) ?? '';
-    const humidity = Math.round(props.weather?.main?.humidity) ?? '';
-    const temperature = Math.round(props.weather?.main?.temp) ?? '';
-    const iconId = props.weather?.weather?.[0].id ?? '';
-    const weatherDescription = props.weather?.weather?.[0].main ?? '';
+    const [windSpeed, setWindSpeed] = useState();
+    const [humidity, setHumidity] = useState();
+    const [temperature, setTemperature] = useState();
+    const [iconId, setIconId] = useState();
+    const [weatherDescription, setWeatherDescription] = useState();
+
+    useEffect(() => {
+        setWindSpeed(Math.round(props.weather?.wind?.speed) ?? '');
+        setHumidity(Math.round(props.weather?.main?.humidity) ?? '');
+        setTemperature(Math.round(props.weather?.main?.temp) ?? '');
+        setIconId(props.weather?.weather?.[0].id ?? '');
+        setWeatherDescription(props.weather?.weather?.[0].main ?? '');
+    }, [props.weather]);
 
     return (
         <div className="weatherWrapper">

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const LocationSlice = createSlice({
     name: 'location',
-    initialState: '',
+    initialState: null,
     reducers: {
         changeLocation: (state, action) => {
             return action.payload;
