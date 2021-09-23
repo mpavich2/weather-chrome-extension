@@ -13,6 +13,8 @@ import { getWeatherDataByCoords, getHourlyWeatherDataByCoords } from '../../util
 import CityData from '../../resources/CityData.json';
 import { sortJsonArrayByClosestDistance } from '../../utils/Coordinates';
 import { changeLocationOptions } from '../../redux/slices/LocationOptionsSlice';
+import { saveToChromeStorage, loadFromChromeStorage } from '../../utils/ChromeStorage';
+import LZString from 'lz-string';
 
 const SearchBar = (props) => {
     useEffect(() => {
@@ -31,7 +33,7 @@ const SearchBar = (props) => {
         }
     }, [props.coordinates]);
 
-    const fetchWeatherData = () => {
+    const fetchWeatherData = async () => {
         getWeatherDataByCoords(props.coordinates).then(result => {
             props.dispatch(
                 changeWeather(result)
@@ -42,7 +44,29 @@ const SearchBar = (props) => {
                 changeHourlyForecast(result)
             );
         });
-        createSortedLocationResultList();
+        if (props.locationOptions.length === 0) {
+            loadFromChromeStorage().then((result) => {
+                setSortedLocationOptions(result);
+            });
+        }
+    }
+
+    const setSortedLocationOptions = (locationOptions) => {
+        if (locationOptions) {
+            console.log('decompressing');
+            const decompressedOptions = LZString.decompressFromUTF16(locationOptions);
+            const decompressedToArray = decompressedOptions.split(',.,');
+            props.dispatch(
+                changeLocationOptions(decompressedToArray)
+            );
+            if (!props.location) {
+                props.dispatch(
+                    changeLocation(decompressedToArray[0])
+                );
+            }
+        } else {
+            createSortedLocationResultList();
+        }
     }
 
     const createSortedLocationResultList = () => {
@@ -64,6 +88,10 @@ const SearchBar = (props) => {
                     })
                 ),
             ];
+            console.log('compressing');
+            const optionsAsString = locationOptions.join(',.,');
+            const compressedOptions = LZString.compressToUTF16(optionsAsString);
+            saveToChromeStorage(compressedOptions);
             props.dispatch(
                 changeLocationOptions(locationOptions)
             );
@@ -93,6 +121,7 @@ const SearchBar = (props) => {
         props.dispatch(
             changeLocation(value)
         );
+        console.log(value);
         const values = value.split(', ');
         let latIndex = 3;
         let lonIndex = 4;

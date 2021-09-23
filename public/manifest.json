@@ -3,7 +3,8 @@
   "name": "Weather Chrome Extension",
   "description": "Simple and efficient extension to get all your weather information!",
   "permissions": [
-    "geolocation"
+    "geolocation",
+    "storage"
   ],
   "host_permissions": [
     "*://*/*"

@@ -4,9 +4,8 @@ import AirQualityIcon from './AirQualityIcon';
 
 const AirQualityMessage = (props) => {
     const airQualityIndex = props.airQualityIndex;
-    const cityName = props.cityName;
 
-    const convertAirQualityIndexToText = (airQualityIndex) => {
+    const convertAirQualityIndexToText = () => {
         switch (true) {
             case airQualityIndex === 1:
                 return 'Good';
@@ -26,7 +25,7 @@ const AirQualityMessage = (props) => {
     return (
         <div className="airQualityWrapper">
             <Typography variant="h2" component="div" sx={{ fontSize: 25 }}>
-                Air Quality in { cityName }
+                Air Quality
             </Typography>
             <Typography variant="h3" component="div" sx={{ fontSize: 40 }}>
                 { convertAirQualityIndexToText() }

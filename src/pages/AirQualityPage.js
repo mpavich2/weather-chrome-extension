@@ -20,7 +20,7 @@ const AirQualityPage = (props) => {
     return (
         <div>
             <Header />
-            <AirQualityMessage airQualityIndex={ airQualityIndex } cityName={ cityName } />
+            <AirQualityMessage airQualityIndex={ airQualityIndex } />
         </div>
     )
 }
