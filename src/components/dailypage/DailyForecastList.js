@@ -17,6 +17,10 @@ const DailyForecastList = (props) => {
         return new Date(datetime*1000+(timezone*1000)).toLocaleDateString('default', { month: 'long', day: 'numeric' });
     }
 
+    while (!props.daily) {
+        return null;
+    }
+
     return (
         <div>
             {props.daily.map((el, index) => 

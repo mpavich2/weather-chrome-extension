@@ -1,23 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Typography } from '@material-ui/core';
 import AirQualityIcon from './AirQualityIcon';
-import { changeAirQuality } from '../../redux/slices/AirQualitySlice';
-import { getAirQualityDataByCoords } from '../../utils/WeatherRetriever';
-import { connect } from 'react-redux';
 
 const AirQualityMessage = (props) => {
-    const airQualityIndex = props.airQuality?.list?.[0].main.aqi;
-    const cityName = props.location.split(', ')[0];
+    const airQualityIndex = props.airQualityIndex;
+    const cityName = props.cityName;
 
-    useEffect(() => {
-        getAirQualityDataByCoords(props.coordinates).then(response => {
-            props.dispatch(
-                changeAirQuality(response)
-            );
-        });
-    }, []);
-
-    const convertAirQualityIndexToText = () => {
+    const convertAirQualityIndexToText = (airQualityIndex) => {
         switch (true) {
             case airQualityIndex === 1:
                 return 'Good';
@@ -47,12 +36,4 @@ const AirQualityMessage = (props) => {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        airQuality: state.airQuality,
-        coordinates: state.coordinates,
-        location: state.location
-    }
-}
-
-export default connect(mapStateToProps)(AirQualityMessage);
+export default AirQualityMessage;

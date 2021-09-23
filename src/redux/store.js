@@ -5,6 +5,7 @@ import CoordinatesReudcer from './slices/CoordinatesSlice';
 import HourlySlice from './slices/HourlySlice';
 import DailySlice from './slices/DailySlice';
 import AirQualitySlice from './slices/AirQualitySlice';
+import LocationOptionsSlice from "./slices/LocationOptionsSlice";
 
 export default configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export default configureStore({
         coordinates: CoordinatesReudcer,
         hourly: HourlySlice,
         daily: DailySlice,
-        airQuality: AirQualitySlice
+        airQuality: AirQualitySlice,
+        locationOptions: LocationOptionsSlice
     },
 });
