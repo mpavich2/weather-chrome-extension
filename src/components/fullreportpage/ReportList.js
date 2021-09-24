@@ -9,18 +9,18 @@ const ReportList = (props) => {
 
     return (
         <div className="fullReport">
-            {data.map((el, index) => 
-            <div key={ index }>
-                <div className="reportEntry">
-                    <Typography variant="body1" component="div">
-                        { el.name }
-                    </Typography>
-                    <Typography variant="body1" component="div">
-                        { el.data }
-                    </Typography>
-                </div>
-                <Divider />
-            </div>)}
+            {data.map((el, index) =>
+                <div key={index}>
+                    <div className="reportEntry">
+                        <Typography variant="body1" component="div">
+                            {el.name}
+                        </Typography>
+                        <Typography variant="body1" component="div">
+                            {el.data}
+                        </Typography>
+                    </div>
+                    <Divider />
+                </div>)}
         </div>
     )
 }

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 
 ReactDOM.render(
-    <Provider store={ store }>
+    <Provider store={store}>
         <HashRouter>
             <App />
         </HashRouter>

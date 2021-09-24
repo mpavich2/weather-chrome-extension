@@ -10,17 +10,17 @@ const AirQualityIcon = (props) => {
         const fontSize = props.size || "large";
         switch (true) {
             case iconId === 1:
-                return <SentimentSatisfiedAltIcon className="svgIcon" fontSize={ fontSize } color={ props.color } />;
+                return <SentimentSatisfiedAltIcon className="svgIcon" fontSize={fontSize} color={props.color} />;
             case iconId === 2:
-                return <SentimentSatisfiedIcon className="svgIcon" fontSize={ fontSize } color={ props.color } />;
+                return <SentimentSatisfiedIcon className="svgIcon" fontSize={fontSize} color={props.color} />;
             case iconId === 3:
-                return <SentimentNeutralIcon className="svgIcon" fontSize={ fontSize } color={ props.color } />;
+                return <SentimentNeutralIcon className="svgIcon" fontSize={fontSize} color={props.color} />;
             case iconId === 4:
-                return <SentimentDissatisfiedIcon className="svgIcon" fontSize={ fontSize } color={ props.color } />;
+                return <SentimentDissatisfiedIcon className="svgIcon" fontSize={fontSize} color={props.color} />;
             case iconId === 5:
-                return <SentimentVeryDissatisfiedIcon className="svgIcon" fontSize={ fontSize } color={ props.color } />;
+                return <SentimentVeryDissatisfiedIcon className="svgIcon" fontSize={fontSize} color={props.color} />;
             default:
-                return <SentimentNeutralIcon className="svgIcon" fontSize={ fontSize } color={ props.color } />;
+                return <SentimentNeutralIcon className="svgIcon" fontSize={fontSize} color={props.color} />;
         }
     }
 

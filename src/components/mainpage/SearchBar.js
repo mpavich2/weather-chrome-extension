@@ -1,128 +1,130 @@
-import React, { useEffect } from 'react';
-import SearchIcon from '@material-ui/icons/Search';
-import { Autocomplete, InputAdornment, TextField } from '@material-ui/core';
-import { createFilterOptions } from '@mui/material/Autocomplete';
-import { connect } from 'react-redux';
-import { changeLocation } from '../../redux/slices/LocationSlice';
-import { changeWeather } from '../../redux/slices/WeatherSlice';
-import { changeCoordinates } from '../../redux/slices/CoordinatesSlice';
-import { changeHourlyForecast } from '../../redux/slices/HourlySlice';
-import { changeDailyForecast } from '../../redux/slices/DailySlice';
-import { geolocateCoordinates } from '../../utils/Geolocater';
-import { getWeatherDataByCoords, getHourlyWeatherDataByCoords } from '../../utils/WeatherRetriever';
-import CityData from '../../resources/CityData.json';
-import { sortJsonArrayByClosestDistance } from '../../utils/Coordinates';
-import { changeLocationOptions } from '../../redux/slices/LocationOptionsSlice';
-import { saveToChromeStorage, loadFromChromeStorage } from '../../utils/ChromeStorage';
-import LZString from 'lz-string';
+import React, { useEffect, useState } from "react";
+import SearchIcon from "@material-ui/icons/Search";
+import { Autocomplete, InputAdornment, TextField } from "@material-ui/core";
+import { createFilterOptions } from "@mui/material/Autocomplete";
+import { connect } from "react-redux";
+import { changeLocation } from "../../redux/slices/LocationSlice";
+import { changeWeather } from "../../redux/slices/WeatherSlice";
+import { changeCoordinates } from "../../redux/slices/CoordinatesSlice";
+import { changeHourlyForecast } from "../../redux/slices/HourlySlice";
+import { changeDailyForecast } from "../../redux/slices/DailySlice";
+import { geolocateCoordinates } from "../../utils/Geolocater";
+import {
+    getWeatherDataByCoords,
+    getHourlyWeatherDataByCoords,
+} from "../../utils/WeatherRetriever";
+import { sortJsonArrayByClosestDistance } from "../../utils/Coordinates";
+import { changeLocationOptions } from "../../redux/slices/LocationOptionsSlice";
+import {
+    saveToChromeStorage,
+    loadFromChromeStorage,
+} from "../../utils/ChromeStorage";
+import LZString from "lz-string";
+import { getS3Object } from "../../utils/S3BucketReader";
+import { changeLoadingMessage } from "../../redux/slices/LoadingMessageSlice";
 
 const SearchBar = (props) => {
+    const [pageLoaded, setPageLoaded] = useState(false);
+
     useEffect(() => {
-        if (!props.location) {
-            geolocateCoordinates().then(result => {
-                props.dispatch(
-                    changeCoordinates(result)
-                );
+        if (!props.location && !props.coordinates) {
+            geolocateCoordinates().then((result) => {
+                props.dispatch(changeCoordinates(result));
             });
         }
     }, []);
 
     useEffect(() => {
-        if (props.coordinates && !props.weather.weather && !props.hourly) {
+        if (props.coordinates && pageLoaded) {
             fetchWeatherData();
         }
+        setPageLoaded(true);
     }, [props.coordinates]);
 
-    const fetchWeatherData = async () => {
-        getWeatherDataByCoords(props.coordinates).then(result => {
-            props.dispatch(
-                changeWeather(result)
-            );
+    const fetchWeatherData = () => {
+        getWeatherDataByCoords(props.coordinates).then((result) => {
+            props.dispatch(changeWeather(result));
         });
-        getHourlyWeatherDataByCoords(props.coordinates).then(result => {
-            props.dispatch(
-                changeHourlyForecast(result)
-            );
+        getHourlyWeatherDataByCoords(props.coordinates).then((result) => {
+            props.dispatch(changeHourlyForecast(result));
         });
         if (props.locationOptions.length === 0) {
             loadFromChromeStorage().then((result) => {
                 setSortedLocationOptions(result);
             });
         }
-    }
+    };
 
     const setSortedLocationOptions = (locationOptions) => {
         if (locationOptions) {
-            console.log('decompressing');
             const decompressedOptions = LZString.decompressFromUTF16(locationOptions);
-            const decompressedToArray = decompressedOptions.split(',.,');
-            props.dispatch(
-                changeLocationOptions(decompressedToArray)
-            );
+            const decompressedToArray = decompressedOptions.split(",.,");
+            props.dispatch(changeLocationOptions(decompressedToArray));
             if (!props.location) {
-                props.dispatch(
-                    changeLocation(decompressedToArray[0])
-                );
+                props.dispatch(changeLocation(decompressedToArray[0]));
             }
         } else {
+            props.dispatch(changeLoadingMessage("Setting Up Locations"));
             createSortedLocationResultList();
         }
-    }
+    };
 
-    const createSortedLocationResultList = () => {
+    const createSortedLocationResultList = async () => {
         if (props.locationOptions.length === 0) {
+            const CityData = await getS3Object(
+                "CityData.json",
+                "weather-chrome-extension"
+            );
             sortJsonArrayByClosestDistance(CityData, props.coordinates);
             const locationOptions = [
                 ...new Set(
-                    CityData.map((option) => { 
+                    CityData.map((option) => {
                         const name = option.name;
                         const state = option.state;
                         const country = option.country;
                         const lat = option.coord.lat.toFixed(2);
                         const lon = option.coord.lon.toFixed(2);
 
-                        if (state === '') {
-                            return name + ', ' + country + ', Lat: ' + lat + ', Lon: ' + lon;
+                        if (state === "") {
+                            return name + ", " + country + ", Lat: " + lat + ", Lon: " + lon;
                         }
-                        return name + ', ' + state + ', ' + country + ', Lat: ' + lat + ', Lon: ' + lon;
+                        return (
+                            name +
+                            ", " +
+                            state +
+                            ", " +
+                            country +
+                            ", Lat: " +
+                            lat +
+                            ", Lon: " +
+                            lon
+                        );
                     })
                 ),
             ];
-            console.log('compressing');
-            const optionsAsString = locationOptions.join(',.,');
+            const optionsAsString = locationOptions.join(",.,");
             const compressedOptions = LZString.compressToUTF16(optionsAsString);
             saveToChromeStorage(compressedOptions);
-            props.dispatch(
-                changeLocationOptions(locationOptions)
-            );
+            props.dispatch(changeLocationOptions(locationOptions));
             if (!props.location) {
-                props.dispatch(
-                    changeLocation(locationOptions[0])
-                );
+                props.dispatch(changeLocation(locationOptions[0]));
             }
+            props.dispatch(changeLoadingMessage(null));
         }
-    }
+    };
 
     const handleSearchBarTextChanged = (value) => {
         if (value) {
-            props.dispatch(
-                changeDailyForecast(null)
-            );
-            setNewCoordinatesAndLocation(value);
-            fetchWeatherData();
+        props.dispatch(changeDailyForecast(null));
+        setNewCoordinatesAndLocation(value);
         } else {
-            props.dispatch(
-                changeLocation('')
-            );
+        props.dispatch(changeLocation(""));
         }
-    }
+    };
 
     const setNewCoordinatesAndLocation = (value) => {
-        props.dispatch(
-            changeLocation(value)
-        );
-        console.log(value);
-        const values = value.split(', ');
+        props.dispatch(changeLocation(value));
+        const values = value.split(", ");
         let latIndex = 3;
         let lonIndex = 4;
         if (values.length === 4) {
@@ -131,55 +133,53 @@ const SearchBar = (props) => {
         }
         const coordinates = {
             latitude: values[latIndex].slice(5),
-            longitude: values[lonIndex].slice(5)
-        }
-        props.dispatch(
-            changeCoordinates(coordinates)
-        );
-    }
+            longitude: values[lonIndex].slice(5),
+        };
+        props.dispatch(changeCoordinates(coordinates));
+    };
 
     const handleSearchBarEnterPressed = (event) => {
-        if (event.key === 'Enter') {
+        if (event.key === "Enter") {
             event.preventDefault();
         }
-    }
+    };
 
     const OPTIONS_LIMIT = 15;
     const filterOptions = createFilterOptions({
         limit: OPTIONS_LIMIT,
-        matchFrom: 'start'
+        matchFrom: "start",
     });
 
     return (
         <div className="searchBarWrapper">
             <Autocomplete
-                value={ props.location }
-                filterOptions={ filterOptions }
+                value={props.location}
+                filterOptions={filterOptions}
                 freeSolo
                 className="searchBar"
-                options={ props.locationOptions }
+                options={props.locationOptions}
                 onChange={(event, newValue) => {
                     handleSearchBarTextChanged(newValue);
                 }}
-                onSubmit={ (event) => handleSearchBarEnterPressed(event) }
-                renderInput={ (params) => (
-                    <TextField
-                        {...params}
-                        label="Search Location"
-                        InputProps={{
-                            ...params.InputProps,
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon />
-                                </InputAdornment>
-                            )
-                        }}
-                    />
+                onSubmit={(event) => handleSearchBarEnterPressed(event)}
+                renderInput={(params) => (
+                <TextField
+                    {...params}
+                    label="Search Location"
+                    InputProps={{
+                    ...params.InputProps,
+                    startAdornment: (
+                        <InputAdornment position="start">
+                        <SearchIcon />
+                        </InputAdornment>
+                    ),
+                    }}
+                />
                 )}
             />
         </div>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => {
     return {
@@ -187,8 +187,8 @@ const mapStateToProps = (state) => {
         coordinates: state.coordinates,
         locationOptions: state.locationOptions,
         weather: state.weather,
-        hourly: state.hourly
-    }
-}
+        hourly: state.hourly,
+    };
+};
 
 export default connect(mapStateToProps)(SearchBar);

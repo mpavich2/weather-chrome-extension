@@ -15,7 +15,7 @@ export function geolocateCityName() {
                         res(data.address.city);
                     }
                 });
-            },
+        },
             err => rej(err)
         );
     });

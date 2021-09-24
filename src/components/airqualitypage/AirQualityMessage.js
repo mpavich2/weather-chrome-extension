@@ -28,9 +28,9 @@ const AirQualityMessage = (props) => {
                 Air Quality
             </Typography>
             <Typography variant="h3" component="div" sx={{ fontSize: 40 }}>
-                { convertAirQualityIndexToText() }
+                {convertAirQualityIndexToText()}
             </Typography>
-            <AirQualityIcon iconId={ airQualityIndex } />
+            <AirQualityIcon iconId={airQualityIndex} />
         </div>
     )
 }

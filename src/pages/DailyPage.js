@@ -15,7 +15,7 @@ const DailyPage = (props) => {
             });
         }
     }, []);
-    
+
     return (
         <div>
             <Header />

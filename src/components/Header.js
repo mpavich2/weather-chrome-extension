@@ -17,7 +17,7 @@ const Header = () => {
                     </Link>
                 </div>
                 <div className="menu">
-                    <MenuIcon fontSize="large"/>
+                    <MenuIcon fontSize="large" />
                 </div>
             </div>
             <Divider />

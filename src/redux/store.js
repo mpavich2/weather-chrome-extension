@@ -2,19 +2,21 @@ import { configureStore } from "@reduxjs/toolkit";
 import LocationReducer from './slices/LocationSlice';
 import WeatherReducer from './slices/WeatherSlice';
 import CoordinatesReudcer from './slices/CoordinatesSlice';
-import HourlySlice from './slices/HourlySlice';
-import DailySlice from './slices/DailySlice';
-import AirQualitySlice from './slices/AirQualitySlice';
-import LocationOptionsSlice from "./slices/LocationOptionsSlice";
+import HourlyReducer from './slices/HourlySlice';
+import DailyReducer from './slices/DailySlice';
+import AirQualityReducer from './slices/AirQualitySlice';
+import LocationOptionsReducer from "./slices/LocationOptionsSlice";
+import LoadingMessageReducer from './slices/LoadingMessageSlice';
 
 export default configureStore({
     reducer: {
         location: LocationReducer,
         weather: WeatherReducer,
         coordinates: CoordinatesReudcer,
-        hourly: HourlySlice,
-        daily: DailySlice,
-        airQuality: AirQualitySlice,
-        locationOptions: LocationOptionsSlice
+        hourly: HourlyReducer,
+        daily: DailyReducer,
+        airQuality: AirQualityReducer,
+        locationOptions: LocationOptionsReducer,
+        loadingMessage: LoadingMessageReducer
     },
 });

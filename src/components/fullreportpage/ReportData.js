@@ -6,11 +6,11 @@ export const ReportData = (weather, hourly) => {
         },
         {
             "name": "High Temperature",
-            "data": Math.round(weather.main.temp_min) + "°F"
+            "data": Math.round(weather.main.temp_max) + "°F"
         },
         {
             "name": "Low Temperature",
-            "data": Math.round(weather.main.temp_max) + "°F"
+            "data": Math.round(weather.main.temp_min) + "°F"
         },
         {
             "name": "Accufeel",

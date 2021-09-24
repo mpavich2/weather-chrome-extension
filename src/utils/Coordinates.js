@@ -13,14 +13,14 @@ export const calculateDistance = (lat1, lon1, lat2, lon2) => {
 };
 
 export const sortJsonArrayByClosestDistance = (jsonArray, coords) => {
-    jsonArray.sort(function(a, b) {
+    jsonArray.sort(function (a, b) {
         if (coords) {
             const originalLat = coords.latitude;
             const originalLon = coords.longitude;
-            return calculateDistance(originalLat, originalLon, a.coord.lat, a.coord.lon) 
+            return calculateDistance(originalLat, originalLon, a.coord.lat, a.coord.lon)
                 - calculateDistance(originalLat, originalLon, b.coord.lat, b.coord.lon);
         }
-        
+
         return 0;
     });
 }

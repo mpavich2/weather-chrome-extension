@@ -20,7 +20,7 @@ const theme = createTheme({
 
 const App = () => {
   return (
-    <ThemeProvider theme={ theme }>
+    <ThemeProvider theme={theme}>
       <div className="app">
         <Switch>
           <Route path="/" exact>
