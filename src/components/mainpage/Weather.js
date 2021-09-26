@@ -29,10 +29,10 @@ const Weather = (props) => {
                 { weatherDescription }
             </Typography>
             <Typography variant="h3" component="div">
-                { Math.round(temperature) }°F
+                { Math.round(temperature) }{ props.units }
             </Typography>
             <div className="windHumidityWrapper">
-                <WindDetails windSpeed={ windSpeed } />
+                <WindDetails windSpeed={ windSpeed } units={ props.units } />
                 <HumidityDetails humidity={ humidity } />
             </div>
         </div>
@@ -41,7 +41,8 @@ const Weather = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        weather: state.weather
+        weather: state.weather,
+        units: state.units
     }
 }
 

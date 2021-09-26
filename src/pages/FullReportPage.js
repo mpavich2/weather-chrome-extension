@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import ReportList from '../components/fullreportpage/ReportList';
 
-const FullReportPage = (props) => {
+const FullReportPage = () => {
 
     return (
         <div>
@@ -11,4 +11,5 @@ const FullReportPage = (props) => {
         </div>
     )
 }
+
 export default FullReportPage;

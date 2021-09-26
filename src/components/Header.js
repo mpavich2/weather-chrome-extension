@@ -1,9 +1,9 @@
 import React from 'react';
-import MenuIcon from '@material-ui/icons/Menu';
 import { Divider } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import HeaderMenu from './HeaderMenu';
 
 const Header = () => {
     return (
@@ -16,9 +16,7 @@ const Header = () => {
                         </IconButton>
                     </Link>
                 </div>
-                <div className="menu">
-                    <MenuIcon fontSize="large" />
-                </div>
+                <HeaderMenu />
             </div>
             <Divider />
         </div>

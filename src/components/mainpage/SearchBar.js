@@ -39,13 +39,19 @@ const SearchBar = (props) => {
             fetchWeatherData();
         }
         setPageLoaded(true);
-    }, [props.coordinates]);
+    }, [props.coordinates, props.units]);
+
+    useEffect(() => {
+        if (props.coordinates) {
+            fetchWeatherData();
+        }
+    }, [props.units]);
 
     const fetchWeatherData = () => {
-        getWeatherDataByCoords(props.coordinates).then((result) => {
+        getWeatherDataByCoords(props.coordinates, props.units).then((result) => {
             props.dispatch(changeWeather(result));
         });
-        getHourlyWeatherDataByCoords(props.coordinates).then((result) => {
+        getHourlyWeatherDataByCoords(props.coordinates, props.units).then((result) => {
             props.dispatch(changeHourlyForecast(result));
         });
         if (props.locationOptions.length === 0) {
@@ -188,6 +194,7 @@ const mapStateToProps = (state) => {
         locationOptions: state.locationOptions,
         weather: state.weather,
         hourly: state.hourly,
+        units: state.units
     };
 };
 

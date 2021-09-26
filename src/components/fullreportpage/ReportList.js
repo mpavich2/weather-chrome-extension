@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { ReportData } from './ReportData';
 
 const ReportList = (props) => {
-    const data = ReportData(props.weather, props.hourly);
+    const data = ReportData(props.weather, props.hourly, props.units);
 
     return (
         <div className="fullReport">
@@ -28,7 +28,8 @@ const ReportList = (props) => {
 const mapStateToProps = (state) => {
     return {
         weather: state.weather,
-        hourly: state.hourly
+        hourly: state.hourly,
+        units: state.units
     }
 }
 

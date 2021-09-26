@@ -1,7 +1,7 @@
 import React from 'react';
-import MenuIcon from '@material-ui/icons/Menu';
 import { Divider } from '@material-ui/core';
 import Clock from './Clock';
+import HeaderMenu from '../HeaderMenu';
 
 const MainHeader = () => {
     return (
@@ -10,9 +10,7 @@ const MainHeader = () => {
                 <div className="time">
                     <Clock />
                 </div>
-                <div className="menu">
-                    <MenuIcon fontSize="large"/>
-                </div>
+                <HeaderMenu />
             </div>
             <Divider />
         </div>

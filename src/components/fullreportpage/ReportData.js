@@ -1,20 +1,20 @@
-export const ReportData = (weather, hourly) => {
+export const ReportData = (weather, hourly, units) => {
     const data = [
         {
             "name": "Temperature",
-            "data": Math.round(weather.main.temp) + "°F"
+            "data": Math.round(weather.main.temp) + units
         },
         {
             "name": "High Temperature",
-            "data": Math.round(weather.main.temp_max) + "°F"
+            "data": Math.round(weather.main.temp_max) + units
         },
         {
             "name": "Low Temperature",
-            "data": Math.round(weather.main.temp_min) + "°F"
+            "data": Math.round(weather.main.temp_min) + units
         },
         {
             "name": "Accufeel",
-            "data": Math.round(weather.main.feels_like) + "°F"
+            "data": Math.round(weather.main.feels_like) + units
         },
         {
             "name": "UV Index",

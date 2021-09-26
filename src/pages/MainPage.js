@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Loading from "../components/mainpage/Loading";
 import { connect } from "react-redux";
+import { changeDrawerOpen } from "../redux/slices/DrawerSlice";
 
 const MainPage = (props) => {
     const determineErrorOrLoadingState = () => {
@@ -94,7 +95,7 @@ const MainPage = (props) => {
 const mapStateToProps = (state) => {
     return {
         weather: state.weather,
-        loadingMessage: state.loadingMessage,
+        loadingMessage: state.loadingMessage
     };
 };
 

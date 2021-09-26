@@ -6,6 +6,10 @@ import AirQualityPage from './pages/AirQualityPage';
 import DailyPage from './pages/DailyPage';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from "react-redux";
+import DrawerSettings from './components/DrawerSettings';
+import { Drawer } from "@material-ui/core";
+import { changeDrawerOpen } from "./redux/slices/DrawerSlice";
 
 const theme = createTheme({
   palette: {
@@ -18,7 +22,13 @@ const theme = createTheme({
   },
 });
 
-const App = () => {
+const App = (props) => {
+  const handleDrawerClose = () => {
+    props.dispatch(
+        changeDrawerOpen(false)
+    );
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <div className="app">
@@ -36,9 +46,22 @@ const App = () => {
             <AirQualityPage />
           </Route>
         </Switch>
+
+        <Drawer
+          open={ props.drawer }
+          onClose={ handleDrawerClose }
+        >
+          <DrawerSettings />
+        </Drawer>
       </div>
     </ThemeProvider>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+      drawer: state.drawer
+  };
+};
+
+export default connect(mapStateToProps)(App);

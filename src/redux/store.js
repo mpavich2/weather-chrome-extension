@@ -7,6 +7,8 @@ import DailyReducer from './slices/DailySlice';
 import AirQualityReducer from './slices/AirQualitySlice';
 import LocationOptionsReducer from "./slices/LocationOptionsSlice";
 import LoadingMessageReducer from './slices/LoadingMessageSlice';
+import DrawerReducer from './slices/DrawerSlice';
+import MeasurementUnitsReducer from './slices/MeasurementUnitsSlice';
 
 export default configureStore({
     reducer: {
@@ -17,6 +19,8 @@ export default configureStore({
         daily: DailyReducer,
         airQuality: AirQualityReducer,
         locationOptions: LocationOptionsReducer,
-        loadingMessage: LoadingMessageReducer
+        loadingMessage: LoadingMessageReducer,
+        drawer: DrawerReducer,
+        units: MeasurementUnitsReducer
     },
 });

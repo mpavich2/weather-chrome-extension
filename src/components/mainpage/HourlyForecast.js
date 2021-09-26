@@ -19,7 +19,7 @@ const HourlyForecast = (props) => {
             <Clock hoursToAdd={ props.hour + 1 } variant="caption" />
             <WeatherIcon iconId={ iconId } size={ 60 } color="#6a6a6a" />
             <Typography variant="subtitle1" component="div">
-                { temperature }°F
+                { temperature }{ props.units }
             </Typography>
         </Paper>
     )
@@ -27,7 +27,8 @@ const HourlyForecast = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        hourly: state.hourly
+        hourly: state.hourly,
+        units: state.units
     }
 }
 

@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 
 const AirQualityPage = (props) => {
     const airQualityIndex = props.airQuality?.list?.[0].main.aqi;
-    const cityName = props.location.split(', ')[0];
 
     useEffect(() => {
         getAirQualityDataByCoords(props.coordinates).then(response => {

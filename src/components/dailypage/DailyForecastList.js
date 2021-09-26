@@ -29,18 +29,18 @@ const DailyForecastList = (props) => {
                         <div className="leftEntry">
                             <WeatherIcon iconId={el.weather[0].id} size={70} />
                             <Typography variant="h4" component="div">
-                                {Math.round(el.temp.day)}°F
+                                {Math.round(el.temp.day)}{ props.units }
                             </Typography>
                             <div className="minMaxTempWrapper">
                                 <div className="minMaxTemp">
                                     <Typography variant="subtitle1" component="div">
-                                        {Math.round(el.temp.max)}°F
+                                        {Math.round(el.temp.max)}{ props.units }
                                     </Typography>
                                 </div>
                                 <Divider />
                                 <div className="minMaxTemp">
                                     <Typography variant="subtitle1" component="div">
-                                        {Math.round(el.temp.min)}°F
+                                        {Math.round(el.temp.min)}{ props.units }
                                     </Typography>
                                 </div>
                             </div>
@@ -64,7 +64,8 @@ const DailyForecastList = (props) => {
 const mapStateToProps = (state) => {
     return {
         daily: state.daily,
-        weather: state.weather
+        weather: state.weather,
+        units: state.units
     }
 }
 

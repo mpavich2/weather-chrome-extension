@@ -8,13 +8,21 @@ import { getDailyWeatherDataByCoords } from '../utils/WeatherRetriever';
 const DailyPage = (props) => {
     useEffect(() => {
         if (!props.daily) {
-            getDailyWeatherDataByCoords(props.coordinates).then(result => {
-                props.dispatch(
-                    changeDailyForecast(result)
-                );
-            });
+            getDailyWeatherData();
         }
     }, []);
+
+    useEffect(() => {
+        getDailyWeatherData();
+    }, [props.units]);
+
+    const getDailyWeatherData = () => {
+        getDailyWeatherDataByCoords(props.coordinates, props.units).then(result => {
+            props.dispatch(
+                changeDailyForecast(result)
+            );
+        });
+    }
 
     return (
         <div>
@@ -27,7 +35,8 @@ const DailyPage = (props) => {
 const mapStateToProps = (state) => {
     return {
         daily: state.daily,
-        coordinates: state.coordinates
+        coordinates: state.coordinates,
+        units: state.units
     }
 }
 
