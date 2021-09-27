@@ -12,7 +12,7 @@ The chrome extension uses the [OpenWeather API](https://openweathermap.org/) for
 
 ## The Chrome Extension
 
-The chrome extension is currently pending review on the chrome web store, but below are some images of how the extension looks.
+The chrome extension can be accessed from the chrome web store [here](https://chrome.google.com/webstore/detail/weather-chrome-extension/omofhlbfjcoaiajgjncndhkcokhjbokd?hl=en&authuser=3).
 
 ### The Landing Page
 This displays basic current weather information on the currently search location.
